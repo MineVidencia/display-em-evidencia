@@ -1,0 +1,6 @@
+name: DisplayEmEvidencia
+version: '1.0'
+main: me.imf4ll.displayEmEvidencia.DisplayEmEvidencia
+api-version: '1.21'
+authors: [ imf4ll, tonhowtf ]
+depend: [Vault]
