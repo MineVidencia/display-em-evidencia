@@ -1,0 +1,16 @@
+#
+# %CHAT%: Canal da mensagem enviada, %WORLD%: Mundo atual do jogador, %MESSAGE%: Mensagem enviada
+# %PLAYERNAME%: Nome do jogador, %DISPLAYNAME%: Nome de exibição,
+# %PRIMARYGROUP%: Prefixo do primeiro grupo de maior peso, %SECONDARYGROUP%: Prefixo do segundo grupo de maior preso
+#
+# TODAS AS CORES SÃO COMPATÍVEIS, o formato aceito é '&c' ou '§c'.
+# Cores válidas: https://minecraft.fandom.com/wiki/Formatting_codes
+#
+message-template:
+  global: '&9[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
+  local: '&e[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
+  staff: '&c[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
+#
+# Raio de distância do canal 'local'
+#
+local-radius: 100

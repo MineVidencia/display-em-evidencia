@@ -1,11 +1,11 @@
 package me.imf4ll.displayEmEvidencia.services
 
 import net.milkbowl.vault.economy.Economy
-import net.milkbowl.vault.permission.Permission
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
+import net.milkbowl.vault.permission.Permission
 
-object VaultService {
+object Hooks {
   lateinit var economy: Economy;
   lateinit var permission: Permission;
 

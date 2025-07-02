@@ -4,3 +4,34 @@ main: me.imf4ll.displayEmEvidencia.DisplayEmEvidencia
 api-version: '1.21'
 authors: [ imf4ll, tonhowtf ]
 depend: [Vault]
+permissions:
+  displayemevidencia.default:
+    description: Dá acesso a todos os comandos bases.
+    default: true
+  displayemevidencia.op:
+    description: Dá acesso a todos os comandos de administração.
+    default: op
+  displayemevidencia.staffchat:
+    description: Dá acesso  ao chat /staff.
+    default: op
+commands:
+  g:
+    usage: /g <mensagem>
+    description: Envia uma mensagem no chat global.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.default
+  l:
+    usage: /l <mensagem>
+    description: Envia uma mensagem no chat local.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.default
+  staff:
+    usage: /staff <mensagem>
+    description: Envia uma mensagem no chat staff.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.staffchat
+  pm:
+    usage: /pm <jogador> <mensagem>
+    description: Envia uma mensagem privada para outro jogador.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.default

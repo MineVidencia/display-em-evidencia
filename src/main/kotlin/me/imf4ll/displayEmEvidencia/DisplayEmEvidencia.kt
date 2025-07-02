@@ -1,6 +1,7 @@
 package me.imf4ll.displayEmEvidencia
 
-import me.imf4ll.displayEmEvidencia.services.VaultService
+import me.imf4ll.displayEmEvidencia.chat.Chat
+import me.imf4ll.displayEmEvidencia.services.Hooks
 import org.bukkit.plugin.java.JavaPlugin
 
 class DisplayEmEvidencia : JavaPlugin() {
@@ -14,7 +15,12 @@ class DisplayEmEvidencia : JavaPlugin() {
   }
 
   override fun onEnable() {
-    VaultService.init(this);
+    saveDefaultConfig();
+
+    Hooks.init(this);
+
+    // Serviços
+    Chat.run(this);
 
     logger.info("Inicializado com sucesso.");
   }
