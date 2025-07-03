@@ -84,4 +84,12 @@ object PersistenceService {
   fun blockPlayer(player: Player, target: Player): Boolean {
     return false;
   }
+
+  fun mutePlayer() {
+
+  }
+
+  fun unmutePlayer() {
+
+  }
 }
