@@ -41,10 +41,19 @@ object PersistenceService {
 
   fun save() {
     val mutedFile = File(plugin.dataFolder, "muted.json");
+    val tempMutedFile = File(plugin.dataFolder, "muted_temp.json");
     val privateMessagesFile = File(plugin.dataFolder, "privatemessages.json");
+    val tempPrivateMessagesFile = File(plugin.dataFolder, "privatemessages_temp.json");
 
-    mutedFile.writeText(gson.toJson(muted));
-    privateMessagesFile.writeText(gson.toJson(privateMessages));
+    tempMutedFile.createNewFile()
+    tempMutedFile.writeText(gson.toJson(muted));
+    tempMutedFile.copyTo(mutedFile, true);
+    tempMutedFile.delete();
+
+    tempPrivateMessagesFile.createNewFile();
+    tempPrivateMessagesFile.writeText(gson.toJson(privateMessages));
+    tempPrivateMessagesFile.copyTo(privateMessagesFile, true);
+    tempPrivateMessagesFile.delete();
   }
 
   fun lockPrivate(player: Player, reason: String): Boolean {
