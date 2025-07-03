@@ -1,20 +1,33 @@
 package me.imf4ll.displayEmEvidencia.chat
 
 import me.imf4ll.displayEmEvidencia.chat.commands.GlobalCommand
-import org.bukkit.configuration.file.FileConfiguration
+import me.imf4ll.displayEmEvidencia.chat.commands.LocalCommand
+import me.imf4ll.displayEmEvidencia.chat.commands.LockPrivateCommand
+import me.imf4ll.displayEmEvidencia.chat.commands.PrivateCommand
+import me.imf4ll.displayEmEvidencia.chat.commands.StaffCommand
+import me.imf4ll.displayEmEvidencia.chat.commands.TeamCommand
+import me.imf4ll.displayEmEvidencia.chat.listeners.ChatListener
+import me.imf4ll.displayEmEvidencia.chat.listeners.CommandListener
 import org.bukkit.plugin.java.JavaPlugin
 
 object Chat {
-  lateinit var config: FileConfiguration;
-
   fun run(plugin: JavaPlugin) {
-    config = plugin.config;
+    // Listeners
+    plugin.server.pluginManager.registerEvents(ChatListener(plugin), plugin);
+    plugin.server.pluginManager.registerEvents(CommandListener(plugin), plugin);
 
     // Comandos
+    val privateCommand = plugin.getCommand("pm");
+    privateCommand?.setExecutor(PrivateCommand());
+    privateCommand?.setAliases(listOf("msg"));
+
     plugin.getCommand("g")?.setExecutor(GlobalCommand());
-    //plugin.getCommand("l")?.setExecutor();
-    //plugin.getCommand("staff")?.setExecutor();
+    plugin.getCommand("l")?.setExecutor(LocalCommand());
+    plugin.getCommand("staff")?.setExecutor(StaffCommand());
+    plugin.getCommand("team")?.setExecutor(TeamCommand());
     //plugin.getCommand("mute")?.setExecutor();
-    //plugin.getCommand("pm")?.setExecutor() // aliases: msg
+    //plugin.getCommand("unmute")?.setExecutor();
+    //plugin.getCommand("bloquear")?.setExecutor();
+    plugin.getCommand("lockpm")?.setExecutor(LockPrivateCommand());
   }
 }

@@ -8,30 +8,65 @@ permissions:
   displayemevidencia.default:
     description: Dá acesso a todos os comandos bases.
     default: true
+  displayemevidencia.chat:
+    description: Dá acesso aos chats.
+    default: true
   displayemevidencia.op:
     description: Dá acesso a todos os comandos de administração.
     default: op
   displayemevidencia.staffchat:
     description: Dá acesso  ao chat /staff.
     default: op
+  displayemevidencia.staff:
+    description: Dá acesso aos comandos comuns de staff.
+    default: op
+  displayemevidencia.mute:
+    description: Dá acesso ao comando /mute.
+    default: op
 commands:
   g:
     usage: /g <mensagem>
     description: Envia uma mensagem no chat global.
     permission-message: "§cVocê não tem permissão para isso."
-    permission: displayemevidencia.default
+    permission: displayemevidencia.chat
   l:
     usage: /l <mensagem>
     description: Envia uma mensagem no chat local.
     permission-message: "§cVocê não tem permissão para isso."
-    permission: displayemevidencia.default
+    permission: displayemevidencia.chat
   staff:
     usage: /staff <mensagem>
     description: Envia uma mensagem no chat staff.
     permission-message: "§cVocê não tem permissão para isso."
     permission: displayemevidencia.staffchat
+  team:
+    usage: /team <mensagem>
+    description: Envia uma mensagem para staffers da mesma hierarquia.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.staff
+  mute:
+    usage: /mute <jogador> <tempo> <motivo>
+    description: Retira a permissão, temporariamente, de um jogador mandar mensagens em todos os canais.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.mute
+  unmute:
+    usage: /unmute <jogador>
+    description: Entrega novamente a permissão do jogador mandar mensagens.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.mute
   pm:
     usage: /pm <jogador> <mensagem>
+    aliases: [msg]
     description: Envia uma mensagem privada para outro jogador.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.default
+  bloquear:
+    usage: /bloquear <jogador>
+    description: Bloqueia as mensagens privadas de um determinado jogador.
+    permission-message: "§cVocê não tem permissão para isso."
+    permission: displayemevidencia.default
+  lockpm:
+    usage: /lockpm <motivo>
+    description: Bloqueia o recebimento de qualquer mensagem privada.
     permission-message: "§cVocê não tem permissão para isso."
     permission: displayemevidencia.default

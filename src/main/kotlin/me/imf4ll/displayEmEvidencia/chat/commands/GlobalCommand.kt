@@ -1,7 +1,7 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
-import me.imf4ll.displayEmEvidencia.chat.services.ChatFormat
-import me.imf4ll.displayEmEvidencia.chat.services.FormatterService
+import me.imf4ll.displayEmEvidencia.services.ChatFormat
+import me.imf4ll.displayEmEvidencia.services.FormatterService
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -12,10 +12,16 @@ class GlobalCommand : CommandExecutor {
   override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String?>): Boolean {
     if (sender !is Player) return true;
 
-    if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto: /g <mensagem>§r");
+    if (!sender.hasPermission("displayemevidencia.chat")) {
+      // lógica
 
-      return false;
+      return true;
+    }
+
+    if (args.isEmpty()) {
+      sender.sendMessage("§cUso correto:§r /g <mensagem>");
+
+      return true;
     }
 
     val message = args.joinToString(" ");

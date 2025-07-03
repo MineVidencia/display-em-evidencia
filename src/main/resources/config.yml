@@ -1,16 +1,19 @@
-#
 # %CHAT%: Canal da mensagem enviada, %WORLD%: Mundo atual do jogador, %MESSAGE%: Mensagem enviada
 # %PLAYERNAME%: Nome do jogador, %DISPLAYNAME%: Nome de exibição,
 # %PRIMARYGROUP%: Prefixo do primeiro grupo de maior peso, %SECONDARYGROUP%: Prefixo do segundo grupo de maior preso
 #
 # TODAS AS CORES SÃO COMPATÍVEIS, o formato aceito é '&c' ou '§c'.
 # Cores válidas: https://minecraft.fandom.com/wiki/Formatting_codes
-#
 message-template:
   global: '&9[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
   local: '&e[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
   staff: '&c[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
-#
+  team: '&a[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
+  private-send: '&8[%CHAT%] Mensagem para %PLAYERNAME%&r: &e%MESSAGE%&r'
+  private-receive: '&8[%CHAT%] Mensagem de %PLAYERNAME%&r: &e%MESSAGE%&r'
 # Raio de distância do canal 'local'
-#
-local-radius: 100
+local-radius: 50
+# Cooldown em canais de mensagem
+message-cooldown: 1
+# Cooldown de comandos (em segundos)
+command-cooldown: 3
