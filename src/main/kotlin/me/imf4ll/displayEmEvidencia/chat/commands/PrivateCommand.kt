@@ -32,12 +32,18 @@ class PrivateCommand : CommandExecutor {
     val formattedSend = FormatterService().format(ChatFormat.PrivateSend(), sender, message);
     val formattedReceive = FormatterService().format(ChatFormat.PrivateReceive(), sender, message);
 
-    val player = Bukkit.getOnlinePlayers().filter { it.name == target };
+    val player = Bukkit.getOnlinePlayers().firstOrNull() { it.name == target };
 
-    if (player.isNotEmpty()) {
-      val target = PersistenceService.privateMessages.first { it.player == player.first().uniqueId };
+    if (player != null) {
+      val playerPm = PersistenceService.privateMessages.firstOrNull() { it.player == sender.uniqueId };
+      val target = PersistenceService.privateMessages.firstOrNull() { it.player == player.uniqueId };
 
-      if (target.pmLocked) {
+      if (playerPm != null && playerPm.pmLocked) {
+        sender.sendMessage("§cVocê não pode enviar mensagens privadas enquanto está com as mensagens privadas bloqueadas.§r");
+
+        return true;
+
+      } else if (target != null && target.pmLocked) {
         sender.sendMessage("§cO jogador não pode receber mensagens privadas${ if (target.lockReason.isNotBlank()) ": ${ target.lockReason }" else "." }§r");
 
         return true;
@@ -45,7 +51,6 @@ class PrivateCommand : CommandExecutor {
 
       sender.sendMessage(formattedSend);
 
-      val player = player.first();
       player.sendMessage(formattedReceive);
       player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
 
