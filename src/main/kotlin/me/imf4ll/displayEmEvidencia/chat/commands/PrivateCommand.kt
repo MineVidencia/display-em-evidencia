@@ -29,9 +29,6 @@ class PrivateCommand : CommandExecutor {
     }
 
     val message = args.slice(1..args.size - 1).joinToString(" ");
-    val formattedSend = FormatterService().format(ChatFormat.PrivateSend(), sender, message);
-    val formattedReceive = FormatterService().format(ChatFormat.PrivateReceive(), sender, message);
-
     val player = Bukkit.getOnlinePlayers().firstOrNull() { it.name == target };
 
     if (player != null) {
@@ -48,6 +45,9 @@ class PrivateCommand : CommandExecutor {
 
         return true;
       }
+
+      val formattedSend = FormatterService().format(ChatFormat.PrivateSend(), player, message);
+      val formattedReceive = FormatterService().format(ChatFormat.PrivateReceive(), sender, message);
 
       sender.sendMessage(formattedSend);
 
