@@ -51,8 +51,12 @@ class PrivateCommand : CommandExecutor {
 
       sender.sendMessage(formattedSend);
 
-      player.sendMessage(formattedReceive);
-      player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
+      val blockedUsers = PersistenceService.privateMessages.firstOrNull() { it.player == player.uniqueId }?.blocked;
+
+      if (blockedUsers == null || !blockedUsers.contains(sender.uniqueId)) {
+        player.sendMessage(formattedReceive);
+        player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
+      }
 
     } else {
       sender.sendMessage("§cJogador não encontrado.§r");

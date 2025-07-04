@@ -82,14 +82,49 @@ object PersistenceService {
   }
 
   fun blockPlayer(player: Player, target: Player): Boolean {
-    return false;
+    val blockedUsers = privateMessages.firstOrNull() { it.player == player.uniqueId }?.blocked;
+
+    if (blockedUsers != null) {
+      if (blockedUsers.contains(target.uniqueId)) {
+        blockedUsers.removeIf { it == target.uniqueId };
+
+        return false;
+
+      } else blockedUsers.add(target.uniqueId);
+
+    } else {
+      privateMessages.add(PrivateMessages(
+        player.uniqueId,
+        false,
+        "",
+        mutableListOf(target.uniqueId),
+      ));
+    }
+
+    return true;
   }
 
-  fun mutePlayer() {
+  fun mutePlayer(player: Player, time: Long, reason: String): Boolean {
+    if (muted.firstOrNull() { it.player == player.uniqueId } != null) return false;
 
+    muted.add(Muted(
+        player.uniqueId,
+        time,
+        reason,
+      )
+    );
+
+    return true;
   }
 
-  fun unmutePlayer() {
+  fun unmutePlayer(player: Player): Boolean {
+    val isMuted = muted.firstOrNull() { it.player == player.uniqueId };
 
+    if (isMuted != null) {
+      muted.removeIf { it.player == player.uniqueId };
+
+    } else return false;
+
+    return true;
   }
 }
