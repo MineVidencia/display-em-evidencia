@@ -1,5 +1,6 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
+import me.imf4ll.displayEmEvidencia.chat.utils.checkMuted
 import me.imf4ll.displayEmEvidencia.services.ChatFormat
 import me.imf4ll.displayEmEvidencia.services.FormatterService
 import me.imf4ll.displayEmEvidencia.services.Hooks
@@ -12,12 +13,7 @@ import org.bukkit.entity.Player
 class LocalCommand : CommandExecutor {
   override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String?>): Boolean {
     if (sender !is Player) return true;
-
-    if (!sender.hasPermission("displayemevidencia.chat")) {
-      // lógica
-
-      return true;
-    }
+    if (checkMuted(sender)) return true;
 
     if (args.isEmpty()) {
       sender.sendMessage("§cUso correto:§r /l <mensagem>");

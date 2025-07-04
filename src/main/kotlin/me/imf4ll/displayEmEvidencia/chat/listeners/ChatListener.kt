@@ -1,5 +1,6 @@
 package me.imf4ll.displayEmEvidencia.chat.listeners
 
+import me.imf4ll.displayEmEvidencia.chat.utils.checkMuted
 import me.imf4ll.displayEmEvidencia.services.ChatFormat
 import me.imf4ll.displayEmEvidencia.services.CooldownService
 import me.imf4ll.displayEmEvidencia.services.FormatterService
@@ -14,6 +15,8 @@ class ChatListener(val plugin: Plugin) : Listener {
   @EventHandler
   fun onChat(event: AsyncPlayerChatEvent) {
     event.isCancelled = true;
+
+    if (checkMuted(event.player)) return;
 
     val player = event.player;
     val cooldowned = CooldownService.chatCooldown;

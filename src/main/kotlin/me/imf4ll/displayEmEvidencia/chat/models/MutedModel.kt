@@ -4,6 +4,6 @@ import java.util.UUID
 
 data class Muted(
   val player: UUID,
-  var time: Int,
+  var time: Long,
   var reason: String,
 );
