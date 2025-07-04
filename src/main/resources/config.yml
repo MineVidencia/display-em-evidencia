@@ -11,9 +11,22 @@ message-template:
   team: '&a[%CHAT%]&r %PRIMARYGROUP% &7%PLAYERNAME%&r: %MESSAGE%'
   private-send: '&8[%CHAT%] Mensagem para %PLAYERNAME%:&r &e%MESSAGE%&r'
   private-receive: '&8[%CHAT%] Mensagem de %PLAYERNAME%:&r &e%MESSAGE%&r'
-# Raio de distância do canal 'local'
+
+# Raio de distância do canal 'local'.
 local-radius: 50
-# Cooldown em canais de mensagem
+
+# Cooldown em canais de mensagem.
 message-cooldown: 1
-# Cooldown de comandos (em segundos)
+
+# Cooldown de comandos (em segundos).
 command-cooldown: 3
+
+# Mensagem quando o jogador entra.
+# %PLAYERNAME%: Nome do jogador, %DISPLAYNAME%: Nome de exibição
+#
+# TODAS AS CORES SÃO COMPATÍVEIS, o formato aceito é '&c' ou '§c'.
+# Cores válidas: https://minecraft.fandom.com/wiki/Formatting_codes
+join-message: ""
+
+# Mensagem quando o jogador sai (é compatível com todas as diretivas do join-message).
+quit-message: ""

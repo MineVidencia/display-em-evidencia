@@ -11,6 +11,7 @@ import me.imf4ll.displayEmEvidencia.chat.commands.TeamCommand
 import me.imf4ll.displayEmEvidencia.chat.commands.UnmuteCommand
 import me.imf4ll.displayEmEvidencia.chat.listeners.ChatListener
 import me.imf4ll.displayEmEvidencia.chat.listeners.CommandListener
+import me.imf4ll.displayEmEvidencia.chat.listeners.PlayerListener
 import org.bukkit.plugin.java.JavaPlugin
 
 object Chat {
@@ -18,6 +19,7 @@ object Chat {
     // Listeners
     plugin.server.pluginManager.registerEvents(ChatListener(plugin), plugin);
     plugin.server.pluginManager.registerEvents(CommandListener(plugin), plugin);
+    plugin.server.pluginManager.registerEvents(PlayerListener(), plugin);
 
     // Comandos
     val privateCommand = plugin.getCommand("pm");
