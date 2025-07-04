@@ -11,6 +11,11 @@ sealed class ChatFormat(val format: String, val chat: String) {
   class PrivateReceive: ChatFormat("private-receive", "<");
 }
 
+sealed class PlayerEventFormat(val format: String) {
+  class Join: PlayerEventFormat("join-message");
+  class Quit: PlayerEventFormat("quit-message");
+}
+
 class FormatterService() {
   fun format(chat: ChatFormat, player: Player, message: String): String {
     var messageFormatter = Hooks.config.getString("message-template.${ chat.format }")!!;
@@ -33,5 +38,14 @@ class FormatterService() {
       .replaceFirst("%MESSAGE%", message)
       .replaceFirst("%PRIMARYGROUP%", if (groups.isNotEmpty()) groups[0].replace("&", "§") else "")
       .replaceFirst("%SECONDARYGROUP%", if ((groups.size) < 2) "" else groups[1].replace("&", "§"));
+  }
+
+  fun formatPlayerEvent(event: PlayerEventFormat, player: Player): String {
+    val messageFormatter = Hooks.config.getString(event.format)!!;
+
+    return messageFormatter
+      .replace("&", "§")
+      .replaceFirst("%PLAYERNAME%", player.name)
+      .replaceFirst("%DISPLAYNAME%", player.displayName);
   }
 }
