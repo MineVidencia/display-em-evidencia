@@ -1,6 +1,7 @@
 package me.imf4ll.displayEmEvidencia
 
 import me.imf4ll.displayEmEvidencia.chat.Chat
+import me.imf4ll.displayEmEvidencia.scoreboard.Scoreboard
 import me.imf4ll.displayEmEvidencia.services.CooldownService
 import me.imf4ll.displayEmEvidencia.services.Hooks
 import me.imf4ll.displayEmEvidencia.services.PersistenceService
@@ -29,7 +30,8 @@ class DisplayEmEvidencia : JavaPlugin() {
     CooldownService.init(this, chatCooldown, commandCooldown);
 
     // Pacotes
-    Chat.run(this);
+    Chat().run(this);
+    Scoreboard().run(this);
 
     logger.info("Inicializado com sucesso.");
   }
