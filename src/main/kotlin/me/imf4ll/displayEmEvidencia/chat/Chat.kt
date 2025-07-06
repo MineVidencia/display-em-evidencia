@@ -14,7 +14,7 @@ import me.imf4ll.displayEmEvidencia.chat.listeners.CommandListener
 import me.imf4ll.displayEmEvidencia.chat.listeners.PlayerListener
 import org.bukkit.plugin.java.JavaPlugin
 
-object Chat {
+class Chat {
   fun run(plugin: JavaPlugin) {
     // Listeners
     plugin.server.pluginManager.registerEvents(ChatListener(plugin), plugin);

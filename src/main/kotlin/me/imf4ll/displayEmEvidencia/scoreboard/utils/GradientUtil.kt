@@ -1,4 +1,4 @@
-package me.imf4ll.displayEmEvidencia.scoreboard
+package me.imf4ll.displayEmEvidencia.scoreboard.utils
 
 import net.md_5.bungee.api.ChatColor
 import java.awt.Color

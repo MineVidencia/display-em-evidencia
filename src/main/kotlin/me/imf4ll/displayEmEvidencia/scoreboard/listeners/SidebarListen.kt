@@ -1,25 +1,24 @@
-package me.imf4ll.displayEmEvidencia.scoreboard
+package me.imf4ll.displayEmEvidencia.scoreboard.listeners
 
+import me.imf4ll.displayEmEvidencia.scoreboard.utils.GradientUtil
+import me.imf4ll.displayEmEvidencia.services.Hooks
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.Statistic
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitTask
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.scoreboard.Scoreboard
-import org.bukkit.Statistic
 import java.text.NumberFormat
 import java.util.Locale
 import java.util.UUID
 
-class SidebarListen(private val plugin: JavaPlugin) : Listener {
-
-
-
+class SidebarListen(val plugin: Plugin) : Listener {
     private val updateTasks = mutableMapOf<UUID, BukkitTask>()
     private val numberFormatter: NumberFormat = NumberFormat.getInstance(Locale.US)
 
@@ -33,9 +32,7 @@ class SidebarListen(private val plugin: JavaPlugin) : Listener {
         updateTasks.remove(e.player.uniqueId)?.cancel()
     }
 
-
-
-    private fun createScoreboard(player: Player) {
+    fun createScoreboard(player: Player) {
         val manager = Bukkit.getScoreboardManager() ?: return
         val board = manager.newScoreboard
 
@@ -62,21 +59,16 @@ class SidebarListen(private val plugin: JavaPlugin) : Listener {
         player.scoreboard = board
     }
 
-
-
-    private fun createTeam(board: Scoreboard, name: String, prefix: String, entryColor: ChatColor, score: Int) {
+    fun createTeam(board: Scoreboard, name: String, prefix: String, entryColor: ChatColor, score: Int) {
         val team = board.registerNewTeam(name).apply {
             this.prefix = prefix
             addEntry(entryColor.toString())
         }
         board.getObjective(DisplaySlot.SIDEBAR)?.getScore(entryColor.toString())?.score = score
-
-
-
-
     }
-    private fun startUpdateTask(player: Player, board: Scoreboard) {
-        val econ = me.imf4ll.displayEmEvidencia.scoreboard.Scoreboard.econ
+
+    fun startUpdateTask(player: Player, board: Scoreboard) {
+        val econ = Hooks.economy;
 
         val task = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
             if (!player.isOnline) {
@@ -93,5 +85,3 @@ class SidebarListen(private val plugin: JavaPlugin) : Listener {
         updateTasks[player.uniqueId] = task
     }
 }
-
-
