@@ -1,6 +1,6 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
-import me.imf4ll.displayEmEvidencia.services.PersistenceService
+import me.imf4ll.displayEmEvidencia.chat.repositories.PlayerRepositories
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -18,7 +18,9 @@ class LockPrivateCommand : CommandExecutor {
       return true;
     }
 
-    if (PersistenceService.lockPrivate(sender, reason)) {
+    val playerRepositories = PlayerRepositories();
+
+    if (playerRepositories.lockPrivate(sender, reason)) {
       sender.sendMessage("§eVocê não receberá mais mensagens privadas.§r");
 
     } else {

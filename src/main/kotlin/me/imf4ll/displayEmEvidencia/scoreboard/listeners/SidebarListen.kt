@@ -41,7 +41,7 @@ class SidebarListen(val plugin: Plugin) : Listener {
             displaySlot = DisplaySlot.SIDEBAR
             displayName = title
         }
-        createTeam(board, "money", "💰 Dinheiro: ", ChatColor.GREEN, 9)
+        createTeam(board, "money", "💰 Dinheiro: §aB$ ", ChatColor.GREEN, 9)
         createTeam(board, "kills", "⚔ Kills: ", ChatColor.DARK_RED, 7)
         createTeam(board, "deaths", "💀 Mortes: ", ChatColor.DARK_GRAY, 5)
         createTeam(board, "online", "👥 Online: ", ChatColor.BLUE, 3)

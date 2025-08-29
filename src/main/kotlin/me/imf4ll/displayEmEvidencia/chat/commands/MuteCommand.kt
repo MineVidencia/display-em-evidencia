@@ -1,8 +1,8 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
 import me.imf4ll.displayEmEvidencia.chat.models.Permissions
+import me.imf4ll.displayEmEvidencia.chat.repositories.MuteRepositories
 import me.imf4ll.displayEmEvidencia.services.Hooks
-import me.imf4ll.displayEmEvidencia.services.PersistenceService
 import me.imf4ll.displayEmEvidencia.utils.toLocalDateTime
 import me.imf4ll.displayEmEvidencia.utils.toTime
 import org.bukkit.Bukkit
@@ -66,9 +66,11 @@ class MuteCommand : CommandExecutor {
       return true;
     }
 
-    if (PersistenceService.mutePlayer(target, time, reason)) {
+    val muteRepositories = MuteRepositories();
+
+    if (muteRepositories.mutePlayer(target, if (sender is Player) sender.uniqueId.toString() else "CONSOLE", reason, time)) {
       sender.sendMessage("§eO jogador '${target.name}' foi silenciado com sucesso.§r");
-      target.sendMessage("§cVocê foi silenciado até ${ toLocalDateTime(time).format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) }.");
+      target.sendMessage("§cVocê foi silenciado até ${ toLocalDateTime(time).format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) }. §8Motivo: $reason§r");
 
     } else {
       sender.sendMessage("§cEsse jogador já está silenciado.§r");

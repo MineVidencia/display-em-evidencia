@@ -24,7 +24,7 @@ class Chat {
     // Comandos
     val privateCommand = plugin.getCommand("pm");
     privateCommand?.setExecutor(PrivateCommand());
-    privateCommand?.setAliases(listOf("msg"));
+    privateCommand?.aliases = listOf("msg");
 
     plugin.getCommand("g")?.setExecutor(GlobalCommand());
     plugin.getCommand("l")?.setExecutor(LocalCommand());

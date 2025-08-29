@@ -1,8 +1,8 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
 import me.imf4ll.displayEmEvidencia.chat.models.Permissions
+import me.imf4ll.displayEmEvidencia.chat.repositories.MuteRepositories
 import me.imf4ll.displayEmEvidencia.services.Hooks
-import me.imf4ll.displayEmEvidencia.services.PersistenceService
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -53,7 +53,9 @@ class UnmuteCommand : CommandExecutor {
       return true;
     }
 
-    if (PersistenceService.unmutePlayer(target)) {
+    val muteRepositories = MuteRepositories();
+
+    if (muteRepositories.unmutePlayer(target)) {
       sender.sendMessage("§eO jogador agora poderá falar.§r");
       target.sendMessage("§eSeu silenciamento foi retirado por um administrador.§r");
 

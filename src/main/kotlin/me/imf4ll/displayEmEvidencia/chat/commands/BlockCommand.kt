@@ -1,6 +1,6 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
-import me.imf4ll.displayEmEvidencia.services.PersistenceService
+import me.imf4ll.displayEmEvidencia.chat.repositories.BlockRepositories
 import org.bukkit.Bukkit
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -20,7 +20,9 @@ class BlockCommand : CommandExecutor {
     val target = Bukkit.getPlayer(args[0].toString());
 
     if (target != null && target.hasPlayedBefore()) {
-      if (PersistenceService.blockPlayer(sender, target)) {
+      val blockRepositories = BlockRepositories();
+
+      if (blockRepositories.blockPlayer(sender, target)) {
         sender.sendMessage("§eVocê agora não receberá mais mensagens privadas de ${ target.name }");
 
       } else {

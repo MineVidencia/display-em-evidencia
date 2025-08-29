@@ -1,9 +1,8 @@
 package me.imf4ll.displayEmEvidencia.chat.models
 
-import java.util.UUID
-
 data class Muted(
-  val player: UUID,
-  var time: Long,
+  var userID: String,
+  var mutedBy: String,
   var reason: String,
+  var time: Long,
 );

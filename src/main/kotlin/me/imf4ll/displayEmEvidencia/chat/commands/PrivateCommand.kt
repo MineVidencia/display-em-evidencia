@@ -1,8 +1,9 @@
 package me.imf4ll.displayEmEvidencia.chat.commands
 
+import me.imf4ll.displayEmEvidencia.chat.repositories.BlockRepositories
+import me.imf4ll.displayEmEvidencia.chat.repositories.PlayerRepositories
 import me.imf4ll.displayEmEvidencia.services.ChatFormat
 import me.imf4ll.displayEmEvidencia.services.FormatterService
-import me.imf4ll.displayEmEvidencia.services.PersistenceService
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.command.Command
@@ -32,16 +33,17 @@ class PrivateCommand : CommandExecutor {
     val player = Bukkit.getOnlinePlayers().firstOrNull() { it.name == target };
 
     if (player != null) {
-      val playerPm = PersistenceService.privateMessages.firstOrNull() { it.player == sender.uniqueId };
-      val target = PersistenceService.privateMessages.firstOrNull() { it.player == player.uniqueId };
+      val playerRepositories = PlayerRepositories();
+      val playerPm = playerRepositories.getPlayer(sender.uniqueId.toString());
+      val targetPm = playerRepositories.getPlayer(player.uniqueId.toString());
 
       if (playerPm != null && playerPm.pmLocked) {
         sender.sendMessage("§cVocê não pode enviar mensagens privadas enquanto está com as mensagens privadas bloqueadas.§r");
 
         return true;
 
-      } else if (target != null && target.pmLocked) {
-        sender.sendMessage("§cO jogador não pode receber mensagens privadas${ if (target.lockReason.isNotBlank()) ": ${ target.lockReason }" else "." }§r");
+      } else if (targetPm != null && targetPm.pmLocked) {
+        sender.sendMessage("§cO jogador não pode receber mensagens privadas${ if (targetPm.lockReason.isNotBlank()) ": ${ targetPm.lockReason }" else "." }§r");
 
         return true;
       }
@@ -51,9 +53,10 @@ class PrivateCommand : CommandExecutor {
 
       sender.sendMessage(formattedSend);
 
-      val blockedUsers = PersistenceService.privateMessages.firstOrNull() { it.player == player.uniqueId }?.blocked;
+      val blockRepositories = BlockRepositories();
+      val blockedUsers = blockRepositories.getBlockedUsers(player.uniqueId.toString());
 
-      if (blockedUsers == null || !blockedUsers.contains(sender.uniqueId)) {
+      if (blockedUsers.firstOrNull() { it.userID == sender.uniqueId.toString() } == null) {
         player.sendMessage(formattedReceive);
         player.playSound(player.location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
       }

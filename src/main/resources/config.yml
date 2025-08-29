@@ -1,3 +1,13 @@
+# Banco de dados
+database:
+  # sqlite, mysql
+  dbms: sqlite
+  # Não precisa preencher se for usar SQLite
+  database: ""
+  host: "localhost"
+  port: 3306
+  username: "root"
+  password: "root"
 # %CHAT%: Canal da mensagem enviada, %WORLD%: Mundo atual do jogador, %MESSAGE%: Mensagem enviada
 # %PLAYERNAME%: Nome do jogador, %DISPLAYNAME%: Nome de exibição,
 # %PRIMARYGROUP%: Prefixo do primeiro grupo de maior peso, %SECONDARYGROUP%: Prefixo do segundo grupo de maior preso
