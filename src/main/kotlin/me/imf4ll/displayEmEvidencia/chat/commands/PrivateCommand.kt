@@ -16,7 +16,7 @@ class PrivateCommand : CommandExecutor {
     if (sender !is Player) return true;
 
     if (args.isEmpty() || args.size < 2) {
-      sender.sendMessage("§cUso correto:§r /$label <jogador> <mensagem>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /$label <jogador> <mensagem>");
 
       return true;
     }
@@ -24,7 +24,7 @@ class PrivateCommand : CommandExecutor {
     val target = args[0];
 
     if (sender.name == target) {
-      sender.sendMessage("§cVocê não pode enviar uma mensagem privada para você mesmo.§r");
+      sender.sendMessage("§c§lERRO:§r §cVocê não pode enviar uma mensagem privada para você mesmo.");
 
       return true;
     }
@@ -38,12 +38,12 @@ class PrivateCommand : CommandExecutor {
       val targetPm = playerRepositories.getPlayer(player.uniqueId.toString());
 
       if (playerPm != null && playerPm.pmLocked) {
-        sender.sendMessage("§cVocê não pode enviar mensagens privadas enquanto está com as mensagens privadas bloqueadas.§r");
+        sender.sendMessage("§c§lERRO:§r §cVocê não pode enviar mensagens privadas enquanto está com as mensagens privadas bloqueadas.");
 
         return true;
 
       } else if (targetPm != null && targetPm.pmLocked) {
-        sender.sendMessage("§cO jogador não pode receber mensagens privadas${ if (targetPm.lockReason.isNotBlank()) ": ${ targetPm.lockReason }" else "." }§r");
+        sender.sendMessage("§c§lERRO:§r §cO jogador não pode receber mensagens privadas${ if (targetPm.lockReason.isNotBlank()) ": ${ targetPm.lockReason }" else "." }");
 
         return true;
       }
@@ -62,7 +62,7 @@ class PrivateCommand : CommandExecutor {
       }
 
     } else {
-      sender.sendMessage("§cJogador não encontrado.§r");
+      sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
       return true;
     }

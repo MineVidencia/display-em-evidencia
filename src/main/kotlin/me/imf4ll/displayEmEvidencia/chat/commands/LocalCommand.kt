@@ -16,7 +16,7 @@ class LocalCommand : CommandExecutor {
     if (checkMuted(sender)) return true;
 
     if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto:§r /l <mensagem>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /l <mensagem>");
 
       return true;
     }
@@ -32,7 +32,7 @@ class LocalCommand : CommandExecutor {
 
     } else {
       sender.sendMessage(formatted);
-      sender.sendMessage("§cNão há ninguém por perto.§r");
+      sender.sendMessage("§cNão há ninguém por perto.");
 
     }
 

@@ -14,7 +14,7 @@ class StaffCommand : CommandExecutor {
     if (sender !is Player || !sender.hasPermission(Permissions.StaffChat().permission)) return true;
 
     if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto:§r /staff <mensagem>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /staff <mensagem>");
 
       return true;
     }

@@ -12,12 +12,18 @@ class BlockCommand : CommandExecutor {
     if (sender !is Player) return true;
 
     if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto:§r /bloquear <jogador>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /bloquear <jogador>");
 
       return true;
     }
 
     val target = Bukkit.getPlayer(args[0].toString());
+
+    if (target?.uniqueId == sender.uniqueId) {
+      sender.sendMessage("§c§lERRO:§r §cVocê não pode bloquear você mesmo.");
+
+      return true;
+    }
 
     if (target != null && target.hasPlayedBefore()) {
       val blockRepositories = BlockRepositories();
@@ -32,7 +38,7 @@ class BlockCommand : CommandExecutor {
       }
 
     } else {
-      sender.sendMessage("§cJogador não encontrado.§r");
+      sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
       return true;
     }

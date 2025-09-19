@@ -15,7 +15,7 @@ class TeamCommand : CommandExecutor {
     if (sender !is Player || !sender.hasPermission(Permissions.Staff().permission)) return true;
 
     if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto:§r /team <mensagem>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /team <mensagem>");
 
       return true;
     }

@@ -6,6 +6,7 @@ import me.imf4ll.displayEmEvidencia.services.Hooks
 import me.imf4ll.displayEmEvidencia.utils.toLocalDateTime
 import me.imf4ll.displayEmEvidencia.utils.toTime
 import org.bukkit.Bukkit
+import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
@@ -18,7 +19,7 @@ class MuteCommand : CommandExecutor {
     if (!sender.hasPermission(Permissions.Mute().permission)) return true;
 
     if (args.isEmpty() || args.size < 3) {
-      sender.sendMessage("§cUso correto:§r /mute <jogador> <tempo> <motivo>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /mute <jogador> <tempo> <motivo>");
 
       return true;
     }
@@ -29,7 +30,7 @@ class MuteCommand : CommandExecutor {
     if (target != null) {
       if (sender is ConsoleCommandSender) {
         if (!target.hasPlayedBefore()) {
-          sender.sendMessage("§cJogador não encontrado.§r");
+          sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
           return true;
         }
@@ -40,19 +41,20 @@ class MuteCommand : CommandExecutor {
         val senderGroup = Hooks.permission.getPrimaryGroup(Bukkit.getPlayer(sender.name));
 
         if (!target.hasPlayedBefore()) {
-          sender.sendMessage("§cJogador não encontrado.§r");
+          sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
           return true;
 
+          // HIERARQUIA
         } else if (sender.uniqueId == target.uniqueId || groups.indexOf(senderGroup) <= groups.indexOf(targetGroup)) {
-          sender.sendMessage("§cVocê não pode silenciar esse jogador.§r");
+          sender.sendMessage("§c§lERRO:§r §cVocê não pode silenciar esse jogador.");
 
           return true;
         }
       }
 
     } else {
-      sender.sendMessage("§cJogador não encontrado.§r");
+      sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
       return true;
     }
@@ -61,7 +63,7 @@ class MuteCommand : CommandExecutor {
     val (time, validTime) = toTime(args[1].toString());
 
     if (!validTime) {
-      sender.sendMessage("§cTempo inválido, use o formato:§r 1h20m50s");
+      sender.sendMessage("§c§lERRO:§r §cTempo inválido, use o formato: 1h20m50s");
 
       return true;
     }
@@ -70,10 +72,36 @@ class MuteCommand : CommandExecutor {
 
     if (muteRepositories.mutePlayer(target, if (sender is Player) sender.uniqueId.toString() else "CONSOLE", reason, time)) {
       sender.sendMessage("§eO jogador '${target.name}' foi silenciado com sucesso.§r");
-      target.sendMessage("§cVocê foi silenciado até ${ toLocalDateTime(time).format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) }. §8Motivo: $reason§r");
+
+      Bukkit.getOnlinePlayers().filter { it.player != target }.forEach { it.sendMessage("""
+
+§c§l---------------------------------------------§r
+
+          §c§lUm jogador foi silenciado!§r
+ 
+ §c· §lJogador: §r§7${ target.displayName }§r
+ §c· §lMotivo: §r§7$reason§r
+ §c· §lDuração: §r§7${toLocalDateTime(time).format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"))}§r
+
+§c§l---------------------------------------------§r
+      """.trimIndent()) }
+
+      target.playSound(target.location, Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
+      target.sendMessage("""
+
+§c§l---------------------------------------------§r
+
+                         §c§lVocê foi silenciado!§r
+                      
+ §c· §lMotivo: §r§7$reason§r
+ §c· §lDuração: §r§7${ toLocalDateTime(time).format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")) }§r
+
+§c§l---------------------------------------------§r
+
+""".trimIndent());
 
     } else {
-      sender.sendMessage("§cEsse jogador já está silenciado.§r");
+      sender.sendMessage("§c§lERRO:§r §cEsse jogador já está silenciado.");
 
       return true;
     }

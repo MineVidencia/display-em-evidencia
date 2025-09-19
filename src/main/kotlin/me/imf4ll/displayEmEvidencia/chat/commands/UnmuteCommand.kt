@@ -15,7 +15,7 @@ class UnmuteCommand : CommandExecutor {
     if (!sender.hasPermission(Permissions.Mute().permission)) return true;
 
     if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto:§r /unmute <jogador>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /unmute <jogador>");
 
       return true;
     }
@@ -26,7 +26,7 @@ class UnmuteCommand : CommandExecutor {
     if (target != null) {
       if (sender is ConsoleCommandSender) {
         if (!target.hasPlayedBefore()) {
-          sender.sendMessage("§cJogador não encontrado.§r");
+          sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
           return true;
         }
@@ -37,18 +37,19 @@ class UnmuteCommand : CommandExecutor {
         val senderGroup = Hooks.permission.getPrimaryGroup(Bukkit.getPlayer(sender.name));
 
         if (!target.hasPlayedBefore()) {
-          sender.sendMessage("§cJogador não encontrado.§r");
+          sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
           return true;
 
+          // HIERARQUIA
         } else if (sender.uniqueId == target.uniqueId || groups.indexOf(senderGroup) <= groups.indexOf(targetGroup)) {
-          sender.sendMessage("§cVocê não pode tirar o silenciamento desse jogador.§r");
+          sender.sendMessage("§c§lERRO:§r §cVocê não pode tirar o silenciamento desse jogador.");
 
           return true;
         }
       }
     } else {
-      sender.sendMessage("§cJogador não encontrado.§r");
+      sender.sendMessage("§c§lERRO:§r §cJogador não encontrado.");
 
       return true;
     }
@@ -56,11 +57,11 @@ class UnmuteCommand : CommandExecutor {
     val muteRepositories = MuteRepositories();
 
     if (muteRepositories.unmutePlayer(target)) {
-      sender.sendMessage("§eO jogador agora poderá falar.§r");
-      target.sendMessage("§eSeu silenciamento foi retirado por um administrador.§r");
+      sender.sendMessage("§eO jogador agora poderá falar.");
+      target.sendMessage("§eSeu silenciamento foi retirado por um administrador.");
 
     } else {
-      sender.sendMessage("§cEsse jogador não está silenciado.§r");
+      sender.sendMessage("§c§lERRO:§r §cEsse jogador não está silenciado.");
 
       return true;
     }

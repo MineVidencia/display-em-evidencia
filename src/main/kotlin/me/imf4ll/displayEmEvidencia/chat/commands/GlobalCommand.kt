@@ -15,7 +15,7 @@ class GlobalCommand : CommandExecutor {
     if (checkMuted(sender)) return true;
 
     if (args.isEmpty()) {
-      sender.sendMessage("§cUso correto:§r /g <mensagem>");
+      sender.sendMessage("§c§lERRO:§r §cUso correto: /g <mensagem>");
 
       return true;
     }

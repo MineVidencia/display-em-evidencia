@@ -23,7 +23,7 @@ class ChatListener(val plugin: Plugin) : Listener {
 
     if (!player.isOp) {
       if (cooldowned.contains(player.uniqueId)) {
-        player.sendMessage("§cEspere um momento para enviar outra mensagem.§r");
+        player.sendMessage("§c§lERRO:§r §cEspere um momento para enviar outra mensagem.");
 
         event.isCancelled = true;
 

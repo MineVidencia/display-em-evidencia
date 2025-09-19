@@ -13,7 +13,7 @@ class LockPrivateCommand : CommandExecutor {
     val reason = args.joinToString(" ");
 
     if (reason.count() > 50) {
-      sender.sendMessage("§cO motivo pode possuir até 50 caracteres.§r");
+      sender.sendMessage("§c§lERRO:§r §cO motivo pode possuir apenas até 50 caracteres.");
 
       return true;
     }
@@ -21,10 +21,10 @@ class LockPrivateCommand : CommandExecutor {
     val playerRepositories = PlayerRepositories();
 
     if (playerRepositories.lockPrivate(sender, reason)) {
-      sender.sendMessage("§eVocê não receberá mais mensagens privadas.§r");
+      sender.sendMessage("§eVocê não receberá mais mensagens privadas.");
 
     } else {
-      sender.sendMessage("§eVocê agora receberá mensagens privadas.§r");
+      sender.sendMessage("§eVocê agora receberá mensagens privadas.");
 
     }
 
