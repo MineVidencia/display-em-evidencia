@@ -40,3 +40,9 @@ join-message: ""
 
 # Mensagem quando o jogador sai (é compatível com todas as diretivas do join-message).
 quit-message: ""
+
+# Mensagens automatizadas
+messages:
+  "Template message":
+    time: 60 # Intervalo em MINUTOS
+    enabled: false
